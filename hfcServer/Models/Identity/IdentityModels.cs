@@ -21,7 +21,7 @@ namespace hfcServer.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("IdentityModel", throwIfV1Schema: false)
         {
         }
 
@@ -29,5 +29,9 @@ namespace hfcServer.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<hfcServer.Models.Need> Needs { get; set; }
+
+        public System.Data.Entity.DbSet<hfcServer.Models.FoodBank> FoodBanks { get; set; }
     }
 }
