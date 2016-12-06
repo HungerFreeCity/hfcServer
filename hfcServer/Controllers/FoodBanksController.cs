@@ -38,7 +38,7 @@ namespace hfcServer.Controllers
                 double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
                 double distance = EARTH_RADIUS_KM * c;
-                return distance > range;
+                return distance < range;
             }
         }
 
@@ -54,7 +54,7 @@ namespace hfcServer.Controllers
                     {
                         ObservableCollection<NeedViewModel> minNeeds = new ObservableCollection<NeedViewModel>();
                         IQueryable<Need> needs = db.Needs.Where(n => n.FoodBankId == fb.Id);
-                        foreach (Need n in needs.ToList<Need>())
+                        foreach (Need n in needs.Where(n => n.Display ==true).ToList<Need>())
                         {
                             minNeeds.Add(new NeedViewModel(n));
                         }
@@ -71,7 +71,7 @@ namespace hfcServer.Controllers
                 {
                     ObservableCollection<NeedViewModel> minNeeds = new ObservableCollection<NeedViewModel>();
                     List<Need> needs = db.Needs.Where(n => n.FoodBankId == fb.Id).ToList<Need>();
-                    foreach (Need n in needs)
+                    foreach (Need n in needs.Where(n => n.Display == true))
                     {
                         minNeeds.Add(new NeedViewModel(n));
                     }
@@ -85,7 +85,7 @@ namespace hfcServer.Controllers
         {
             ObservableCollection<NeedViewModel> minNeeds = new ObservableCollection<NeedViewModel>();
             List<Need> needs = db.Needs.Where(n => n.FoodBankId == id).ToList<Need>();
-            foreach (Need n in needs)
+            foreach (Need n in needs.Where(n => n.Display == true))
             {
                 minNeeds.Add(new NeedViewModel(n));
             }
